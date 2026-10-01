@@ -16,10 +16,10 @@ function Registration() {
 
     const dataForm = {
       login,
-      password
-      // fio,
-      // email,
-      // phone
+      password,
+      fio,
+      email,
+      phone
     };
 
   await fetch("http://localhost:3000/", {

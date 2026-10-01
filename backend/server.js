@@ -12,14 +12,14 @@ app.use(bodyParser.json());
 app.post("/", (req, res) => {
   console.log(req.body);
 
-  const { login, password} = req.body;
+  const { login, password, fio, email, phone} = req.body;
   console.log(login);
 
   connection.query(
-      `INSERT INTO user(login, password) VALUES (?, ?)`, 
-    [login, password],
+    `INSERT INTO user(login, password, fio, email, phone) VALUES (?, ?, ?, ?, ?)`,
+    [login, password, fio, email, phone],
     (err, rows) => {
-      if (err) return res.json({message: 'Логин занят'});
+      if (err) return res.json({ message: "Логин занят" });
 
       console.log("данные добавлены ");
     },
