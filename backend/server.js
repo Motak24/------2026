@@ -12,20 +12,21 @@ app.use(bodyParser.json());
 app.post("/", (req, res) => {
   console.log(req.body);
 
-  const { login, password, fio, email, phone} = req.body;
-  console.log(login);
+  const { login, password, fio, email, phone } = req.body;
 
   connection.query(
     `INSERT INTO user(login, password, fio, email, phone) VALUES (?, ?, ?, ?, ?)`,
     [login, password, fio, email, phone],
     (err, rows) => {
-      if (err) return res.json({ message: "Логин занят" });
+      if (err) {
+        console.log(err);
+        return res.json({ message: "Логин занят" });
+      }
 
-      console.log("данные добавлены ");
+      console.log("данные добавлены");
+      res.json({ message: "Пользователь создан" });
     },
   );
-
-  res.send("Hello World!");
 });
 
 app.listen(port, () => {

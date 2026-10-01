@@ -19,18 +19,29 @@ function Registration() {
       password,
       fio,
       email,
-      phone
+      phone,
     };
 
-  await fetch("http://localhost:3000/", {
+    const response = await fetch("http://localhost:3000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify( dataForm ),
+      body: JSON.stringify(dataForm),
     });
 
-    // const navigate = useNavigate();
+    const data = await response.json();
+
+    console.log("STATUS:", response.status);
+    console.log("DATA:", data);
+
+    if (response.status === 400) {
+      alert(data.message);
+    }
+
+    if (response.status === 200) {
+      alert(data.message);
+    }
   };
 
   const handleLogin = (value) => setLogin(value);
