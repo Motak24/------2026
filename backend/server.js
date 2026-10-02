@@ -9,7 +9,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/", (req, res) => {
+app.post("/reg", (req, res) => {
   console.log(req.body);
 
   const { login, password, fio, email, phone } = req.body;
@@ -20,11 +20,43 @@ app.post("/", (req, res) => {
     (err, rows) => {
       if (err) {
         console.log(err);
-        return res.json({ message: "Логин занят" });
+        return res.status(400).json({ message: "Логин занят" });
       }
 
       console.log("данные добавлены");
-      res.json({ message: "Пользователь создан" });
+
+      res.status(200).json({
+        user: true,
+        message: "Регистрация успешна",
+      });
+    },
+  );
+});
+
+app.post("/auth", (req, res) => {
+  console.log(req.body);
+
+  const { login, password } = req.body;
+
+  connection.query(
+    `SELECT * FROM user WHERE (login, password) = (?, ?)`,
+    [login, password],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.json({ message: "Ошибка БД" });
+      }
+
+      if (result.length === 0) {
+        return res.json({ user: false, message: "Пользователь не найден!" });
+      }
+
+      console.log("пользователь найден");
+      res.json({
+        user: true,
+        data: result[0],
+        message: "Вы успешно авторизовались",
+      });
     },
   );
 });

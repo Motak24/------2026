@@ -2,13 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const dataForm = {
@@ -16,23 +19,29 @@ function Auth() {
       password,
     };
 
-    const response = new fetch("http://localhost5173/reg", {
+    const response = await fetch("http://localhost:3000/auth", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ dataForm }),
+      body: JSON.stringify(dataForm),
     });
 
-    const navigate = useNavigate();
+    const data = await response.json();
+    alert(data.message);
+
+    if (data.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/");
+    }
   };
 
   const handleLogin = (value) => setLogin(value);
   const handlePassword = (value) => setPassword(value);
 
   return (
-    <Form className="p-3 m-3">
-    <h1>Авторизация</h1>
+    <Form className="p-3 m-3" onSubmit={handleSubmit}>
+      <h1 className="p-3 m-3">Авторизация</h1>
       <Form.Group className="p-3 m-3">
         <Form.Label>Логин</Form.Label>
         <Form.Control
@@ -60,9 +69,17 @@ function Auth() {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit" onSubmit={handleSubmit}>
-        Войти
-      </Button>
+      <div className="text-center p-3">
+        <Button variant="primary" type="submit">
+          Войти
+        </Button>
+      </div>
+
+      <Nav className="flex-column">
+        <Nav.Link href="/reg">
+          Ещё не зарегистрированы? Создать аккаунт
+        </Nav.Link>
+      </Nav>
     </Form>
   );
 }

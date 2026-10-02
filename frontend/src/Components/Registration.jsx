@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Registration() {
   const [login, setLogin] = useState("");
@@ -10,6 +11,7 @@ function Registration() {
   const [fio, setFIO] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ function Registration() {
       phone,
     };
 
-    const response = await fetch("http://localhost:3000/", {
+    const response = await fetch("http://localhost:3000/reg", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,15 +34,13 @@ function Registration() {
 
     const data = await response.json();
 
-    console.log("STATUS:", response.status);
-    console.log("DATA:", data);
-
     if (response.status === 400) {
       alert(data.message);
     }
 
     if (response.status === 200) {
       alert(data.message);
+      navigate("/auth");
     }
   };
 
@@ -53,7 +53,7 @@ function Registration() {
   return (
     <Form className="p-3 m-3" onSubmit={handleSubmit}>
       <Form.Group className="p-3">
-        <h1>Регистрация</h1>
+        <h1 className="p-3 m-3">Регистрация</h1>
         <Form.Label>Логин</Form.Label>
         <Form.Control
           type="text"
@@ -119,9 +119,15 @@ function Registration() {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Создать пользователя
-      </Button>
+      <div className="text-center p-3">
+        <Button variant="primary" type="submit">
+          Создать пользователя
+        </Button>
+      </div>
+
+      <Nav className="flex-column">
+        <Nav.Link href="/auth">Уже зарегистрированы? Войти</Nav.Link>
+      </Nav>
     </Form>
   );
 }

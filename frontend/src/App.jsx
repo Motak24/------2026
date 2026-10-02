@@ -10,14 +10,16 @@ import Form from "react-bootstrap/Form";
 
 import Registration from "./Components/Registration";
 import Auth from "./Components/Auth";
+import Profile from "./Components/Profile";
 
 function App() {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
-      <h1>ДЭМО. ПОРТАЛ "Корочки.есть"</h1>
+      <h1>ДЭМО ЭКЗАМЕН</h1>
       <Routes>
-        <Route path="/" element={<Registration />}></Route>
+        <Route path="/reg" element={<Registration />}></Route>
         <Route path="/auth" element={<Auth />}></Route>
+        <Route path="/" element={<Profile />}></Route>
       </Routes>
     </div>
   );
