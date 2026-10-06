@@ -61,6 +61,18 @@ app.post("/auth", (req, res) => {
   );
 });
 
+app.get("/applications", (req, res) => {
+  connection.query(`select * from booking`, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(401).json({ message: `Ошибка БД` });
+    }
+
+    console.log("Заявки найдены!");
+    return res.status(200).json(result);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

@@ -4,7 +4,7 @@ export const connection = mysql2.createConnection({
   host: 'localhost',
   user: 'root',
   password: '1234',
-  database: 'db_trenirovka'
+  database: 'demo_isip_32'
 })
 
 connection.connect()

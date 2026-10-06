@@ -31,7 +31,7 @@ function Auth() {
     alert(data.message);
 
     if (data.user) {
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("currentUser", JSON.stringify(data));
       navigate("/");
     }
   };
