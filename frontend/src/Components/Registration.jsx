@@ -9,20 +9,15 @@ function Registration() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [fio, setFIO] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    const dataForm = {
-      login,
-      password,
-      fio,
-      email,
-      phone,
-    };
+    const dataForm = { login, password, fio, phone, email };
 
     const response = await fetch("http://localhost:3000/reg", {
       method: "POST",
@@ -42,25 +37,25 @@ function Registration() {
       alert(data.message);
       navigate("/auth");
     }
-  };
+  }
 
   const handleLogin = (value) => setLogin(value);
   const handlePassword = (value) => setPassword(value);
   const handleFIO = (value) => setFIO(value);
-  const handleEmail = (value) => setEmail(value);
   const handlePhone = (value) => setPhone(value);
+  const handleEmail = (value) => setEmail(value);
 
   return (
-    <Form className="p-3 m-3" onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="form-card">
+      <h1 className="p-3 m-3">Регистрация</h1>
       <Form.Group className="p-3">
-        <h1 className="p-3 m-3">Регистрация</h1>
         <Form.Label>Логин</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Введите логин"
-          minLength={6}
+          placeholder="Логин"
           title="латиница и цифры, не менее 6 символов"
           pattern="[a-zA-Z0-9]{6,}"
+          minLength={6}
           value={login}
           onChange={(e) => handleLogin(e.target.value)}
           required
@@ -71,9 +66,9 @@ function Registration() {
         <Form.Label>Пароль</Form.Label>
         <Form.Control
           type="password"
-          title="пароль минимум 8 символов"
-          minLength={8}
           placeholder="Пароль"
+          title="минимум 8 символов"
+          minLength={8}
           value={password}
           onChange={(e) => handlePassword(e.target.value)}
           required
@@ -84,9 +79,9 @@ function Registration() {
         <Form.Label>ФИО</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Введите ФИО"
-          title="Символы кириллицы и пробелы"
-          pattern="[а-яА-ЯёЁ\s]+"
+          placeholder="ФИО"
+          title="символы кириллицы и пробелы"
+          pattern="[а-яА-ЯёЁ0-9\s]+"
           value={fio}
           onChange={(e) => handleFIO(e.target.value)}
           required
@@ -94,14 +89,14 @@ function Registration() {
       </Form.Group>
 
       <Form.Group className="p-3">
-        <Form.Label>Номер телефона</Form.Label>
+        <Form.Label>Телефон</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Введите номер телефона"
-          maxLength={15}
-          minLength={15}
+          placeholder="Телефон"
           title="формат: 8(XXX)XXX-XX-XX"
           pattern="8\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}"
+          minLength={15}
+          maxLength={15}
           value={phone}
           onChange={(e) => handlePhone(e.target.value)}
           required
@@ -109,25 +104,27 @@ function Registration() {
       </Form.Group>
 
       <Form.Group controlId="formBasicEmail" className="p-3">
-        <Form.Label>Адрес электронной почты</Form.Label>
+        <Form.Label>Почта</Form.Label>
         <Form.Control
           type="email"
-          placeholder="Введите почту"
+          placeholder="Почта"
           value={email}
           onChange={(e) => handleEmail(e.target.value)}
           required
         />
       </Form.Group>
 
-      <div className="text-center p-3">
-        <Button variant="primary" type="submit">
+      <div className="text-center m-3">
+        <Button variant="primary" type="submit" size="lg">
           Создать пользователя
         </Button>
-      </div>
 
-      <Nav className="flex-column">
-        <Nav.Link href="/auth">Уже зарегистрированы? Войти</Nav.Link>
-      </Nav>
+        <Nav className="flex-column p-3">
+          <Nav.Link href="/auth">
+            Уже зарегистрированы? Войти в аккаунт
+          </Nav.Link>
+        </Nav>
+      </div>
     </Form>
   );
 }

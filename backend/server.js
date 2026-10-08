@@ -1,61 +1,56 @@
-import express from "express";
-import { connection } from "./connectDB.js";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { connection } from "./connectDB.js";
 
+import express from "express";
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/reg", (req, res) => {
+app.post("/", (req, res) => {
   console.log(req.body);
-
-  const { login, password, fio, email, phone } = req.body;
+  const { login, password, fio, phone, email } = req.body;
 
   connection.query(
-    `INSERT INTO user(login, password, fio, email, phone) VALUES (?, ?, ?, ?, ?)`,
-    [login, password, fio, email, phone],
+    "INSERT INTO user(login, password, fio, phone, email) VALUES (?, ?, ?, ?, ?)",
+    [login, password, fio, phone, email],
     (err, rows) => {
       if (err) {
         console.log(err);
-        return res.status(400).json({ message: "Логин занят" });
+        return res.status(400).json({ message: "Логин занят!" });
       }
 
-      console.log("данные добавлены");
-
-      res.status(200).json({
-        user: true,
-        message: "Регистрация успешна",
-      });
+      console.log("Пользователь добавлен!");
+      res
+        .status(200)
+        .json({ user: true, message: "Регистрация прошла успешна!" });
     },
   );
 });
 
 app.post("/auth", (req, res) => {
   console.log(req.body);
-
   const { login, password } = req.body;
 
   connection.query(
-    `SELECT * FROM user WHERE (login, password) = (?, ?)`,
+    "SELECT * FROM user WHERE (login, password) = (?, ?)",
     [login, password],
     (err, result) => {
       if (err) {
         console.log(err);
-        return res.json({ message: "Ошибка БД" });
+        return res.json({ message: "Ошибка БД!" });
       }
 
       if (result.length === 0) {
-        return res.json({ user: false, message: "Пользователь не найден!" });
+        return res.json({ message: "Пользователь не найден!" });
       }
 
-      console.log("пользователь найден");
+      console.log("Пользователь найден!");
       res.json({
-        user: true,
-        data: result[0],
-        message: "Вы успешно авторизовались",
+        user: result[0],
+        message: "Авторизация прошла успешна!",
       });
     },
   );

@@ -1,5 +1,4 @@
 import mysql2 from 'mysql2'
-
 export const connection = mysql2.createConnection({
   host: 'localhost',
   user: 'root',
@@ -14,3 +13,4 @@ connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
 
   console.log('The solution is: ', rows[0].solution)
 })
+
