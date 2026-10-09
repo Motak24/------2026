@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
 function Registration() {
   const [login, setLogin] = useState("");
@@ -12,6 +13,9 @@ function Registration() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -19,7 +23,7 @@ function Registration() {
 
     const dataForm = { login, password, fio, phone, email };
 
-    const response = await fetch("http://localhost:3000/reg", {
+    const response = await fetch("http://localhost:3000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,13 +33,13 @@ function Registration() {
 
     const data = await response.json();
 
-    if (response.status === 400) {
-      alert(data.message);
-    }
-
     if (response.status === 200) {
-      alert(data.message);
+      setError("");
+      setSuccess(data.message);
       navigate("/auth");
+    } else {
+      setSuccess("");
+      setError(data.message);
     }
   }
 
@@ -46,8 +50,23 @@ function Registration() {
   const handleEmail = (value) => setEmail(value);
 
   return (
-    <Form onSubmit={handleSubmit} className="form-card">
-      <h1 className="p-3 m-3">Регистрация</h1>
+    <Form
+      onSubmit={handleSubmit}
+      className="col-11 col-md-8 col-lg-5 bg-white rounded-4 shadow p-3 w-25"
+    >
+      <h1 className="p-3 m-3 text-center">Регистрация</h1>
+
+      {error && (
+        <Alert variant="danger" className="mx-3">
+          {error}
+        </Alert>
+      )}
+      {success && (
+        <Alert variant="success" className="mx-3">
+          {success}
+        </Alert>
+      )}  
+
       <Form.Group className="p-3">
         <Form.Label>Логин</Form.Label>
         <Form.Control
@@ -119,7 +138,7 @@ function Registration() {
           Создать пользователя
         </Button>
 
-        <Nav className="flex-column p-3">
+        <Nav className="flex-column p-3 small">
           <Nav.Link href="/auth">
             Уже зарегистрированы? Войти в аккаунт
           </Nav.Link>

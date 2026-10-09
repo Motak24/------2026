@@ -1,12 +1,14 @@
-
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 
 function Profile() {
   const [applications, setApplications] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const navigate = useNavigate();
 
   console.log("CURRENT USER:", currentUser);
   console.log("APPLICATIONS:", applications);
@@ -28,7 +30,7 @@ function Profile() {
   }, []);
 
   return (
-    <Container className="page">
+    <Container>
       <div>
         <h1 className="text-center p-3 m-3">Ваши текущие заявки</h1>
         <hr />
@@ -37,7 +39,7 @@ function Profile() {
       <div className="d-flex flex-wrap gap-3 p-3">
         {applications.map(
           (el) =>
-           currentUser.id_user == el.id_user && (
+            currentUser.id_user == el.id_user && (
               <Card style={{ width: "18rem" }} key={el.id_b}>
                 <Card.Body>
                   <Card.Title>{el.room}</Card.Title>

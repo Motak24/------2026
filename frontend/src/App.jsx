@@ -1,53 +1,69 @@
-import React from "react";
-
-import { Route } from "react-router-dom";
-import { Routes } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import logo from "./assets/logo.png";
-import hero from "./assets/hero.jpg"
-import { Link } from "react-router-dom";
-
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import hero from "./assets/hero.jpg";
 
 import Registration from "./Components/Registration";
 import Auth from "./Components/Auth";
 import Profile from "./Components/Profile";
+import СreateApplication from "./Components/СreateApplication"
 import Footer from "./Components/Footer";
 
 function App() {
-  // const navigate = useNavigate();
-
   return (
-    <div className="min-vh-100">
-      <header className="site-header sticky-top py-2 px-3 d-flex justify-content-between align-items-center">
-        <Link to="/profile" className="brand">
-          <img src={logo} alt="Логотип" />
-          Конференции.РФ
-        </Link>
-        <nav className="d-flex gap-3">
-          <Link className="nav-link" to="/profile">
-            Заявки
-          </Link>
-          <Link className="nav-link" to="/auth">
-            Вход
-          </Link>
-          <Link className="nav-link" to="/">
-            Регистрация
-          </Link>
-        </nav>
-      </header>
-      <img className="hero" src={hero} alt="" />
-      <main className="d-flex flex-column align-items-center py-4 px-2">
+    <div className="d-flex flex-column min-vh-100">
+      <Navbar expand="md" bg="dark" data-bs-theme="dark" sticky="top">
+        <Container fluid>
+          <Navbar.Brand
+            as={Link}
+            to="/profile"
+            className="d-flex align-items-center gap-2 fs-4 fw-bold"
+          >
+            <img
+              src={logo}
+              alt=""
+              width={40}
+              height={40}
+              className="rounded-circle"
+            />
+            Конференции.РФ
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="menu" />
+          <Navbar.Collapse id="menu" className="justify-content-end">
+            <Nav>
+              <Nav.Link as={Link} to="/profile" className="text-white">
+                Профиль
+              </Nav.Link>
+              <Nav.Link as={Link} to="/auth" className="text-white">
+                Вход
+              </Nav.Link>
+              <Nav.Link as={Link} to="/" className="text-white">
+                Регистрация
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      <img
+        src={hero}
+        alt=""
+        className="w-100 d-block object-fit-cover"
+        style={{ height: "240px", objectPosition: "center 70%" }}
+      />
+
+      <main className="d-flex flex-column align-items-center flex-grow-1 py-5 px-2">
         <Routes>
           <Route path="/" element={<Registration />}></Route>
           <Route path="/auth" element={<Auth />}></Route>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/create" element={<СreateApplication />}></Route>
         </Routes>
       </main>
+
       <Footer />
     </div>
   );

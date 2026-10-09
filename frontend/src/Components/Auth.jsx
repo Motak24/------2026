@@ -4,10 +4,12 @@ import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
 function Auth() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,11 +28,11 @@ function Auth() {
 
     const data = await response.json();
 
-    alert(data.message);
-
     if (data.user) {
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       navigate("/profile");
+    } else {
+      setError(data.message);
     }
   }
 
@@ -38,8 +40,18 @@ function Auth() {
   const handlePassword = (value) => setPassword(value);
 
   return (
-    <Form onSubmit={handleSubmit} className="form-card">
-      <h1 className="p-3 m-3">Авторизация</h1>
+    <Form
+      onSubmit={handleSubmit}
+      className="col-11 col-md-8 col-lg-5 bg-white rounded-4 shadow p-3 w-25"
+    >
+      <h1 className="p-3 m-3 text-center">Авторизация</h1>
+
+      {error && (
+        <Alert variant="danger" className="mx-3">
+          {error}
+        </Alert>
+      )}
+
       <Form.Group className="p-3 m-3">
         <Form.Label>Логин</Form.Label>
         <Form.Control
@@ -72,7 +84,7 @@ function Auth() {
           Авторизоваться
         </Button>
 
-        <Nav className="flex-column p-3">
+        <Nav className="flex-column p-3 small">
           <Nav.Link href="/">Ещё не зарегистрированы? Создать аккаунт</Nav.Link>
         </Nav>
       </div>

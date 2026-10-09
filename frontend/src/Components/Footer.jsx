@@ -18,9 +18,21 @@ function Footer() {
           <Col md={4}>
             <h3 className="text-white">Разделы</h3>
             <ul className="list-unstyled mb-0">
-              <li><Link className="text-white" to="/">Мои заявки</Link></li>
-              <li><Link className="text-white" to="/auth">Вход</Link></li>
-              <li><Link className="text-white" to="/reg">Регистрация</Link></li>
+              <li>
+                <Link className="text-white" to="/profile">
+                  Профиль
+                </Link>
+              </li>
+              <li>
+                <Link className="text-white" to="/auth">
+                  Вход
+                </Link>
+              </li>
+              <li>
+                <Link className="text-white" to="/">
+                  Регистрация
+                </Link>
+              </li>
             </ul>
           </Col>
 
@@ -28,10 +40,22 @@ function Footer() {
             <h3 className="text-white">Мы в соцсетях</h3>
             <div className="d-flex gap-3">
               <a href="https://vk.com" target="_blank" rel="noreferrer">
-                <img src={vk} alt="ВКонтакте" width={40} height={40} className="rounded" />
+                <img
+                  src={vk}
+                  alt="ВКонтакте"
+                  width={40}
+                  height={40}
+                  className="rounded"
+                />
               </a>
               <a href="https://ok.ru" target="_blank" rel="noreferrer">
-                <img src={ok} alt="Одноклассники" width={40} height={40} className="rounded" />
+                <img
+                  src={ok}
+                  alt="Одноклассники"
+                  width={40}
+                  height={40}
+                  className="rounded"
+                />
               </a>
             </div>
           </Col>
