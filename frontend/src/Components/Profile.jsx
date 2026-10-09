@@ -32,7 +32,7 @@ function Profile() {
   return (
     <Container>
       <div>
-        <h1 className="text-center p-3 m-3">Ваши текущие заявки</h1>
+        <h1 className="text-center p-3 m-3 text-bg-light rounded-5 bg-white bg-opacity-75">Ваши текущие заявки</h1>
         <hr />
       </div>
 
@@ -40,7 +40,7 @@ function Profile() {
         {applications.map(
           (el) =>
             currentUser.id_user == el.id_user && (
-              <Card style={{ width: "18rem" }} key={el.id_b}>
+              <Card style={{ width: "18rem" }} key={el.id_b} className="bg-white bg-opacity-75 rounded-4">
                 <Card.Body>
                   <Card.Title>{el.room}</Card.Title>
 
@@ -58,8 +58,8 @@ function Profile() {
       <hr />
 
       <div className="text-center p-3">
-        <h1 className="text-center p-3 m-3">Нужно что-то ещё?</h1>
-        <Button variant="primary" type="submit" size="lg">
+        <h1 className="text-center p-3 m-3 text-bg-light rounded-5 bg-white bg-opacity-75">Нужно что-то ещё?</h1>
+        <Button variant="primary" type="submit" size="lg" className="rounded-5">
           Подать новую заявку
         </Button>
       </div>

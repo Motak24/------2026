@@ -42,12 +42,12 @@ function Auth() {
   return (
     <Form
       onSubmit={handleSubmit}
-      className="col-11 col-md-8 col-lg-5 bg-white rounded-4 shadow p-3 w-25"
+      className="bg-white bg-opacity-75 rounded-5 w-25 p-3"
     >
       <h1 className="p-3 m-3 text-center">Авторизация</h1>
 
       {error && (
-        <Alert variant="danger" className="mx-3">
+        <Alert variant="danger" className="mx-3  rounded-5">
           {error}
         </Alert>
       )}
@@ -55,6 +55,7 @@ function Auth() {
       <Form.Group className="p-3 m-3">
         <Form.Label>Логин</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="text"
           placeholder="Логин"
           title="латиница и цифры, не менее 6 символов"
@@ -69,6 +70,7 @@ function Auth() {
       <Form.Group controlId="formBasicPassword" className="p-3 m-3">
         <Form.Label>Пароль</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="password"
           placeholder="Пароль"
           title="минимум 8 символов"
@@ -80,7 +82,7 @@ function Auth() {
       </Form.Group>
 
       <div className="text-center">
-        <Button variant="primary" type="submit" size="lg">
+        <Button variant="primary" type="submit" size="lg" className="rounded-5">
           Авторизоваться
         </Button>
 

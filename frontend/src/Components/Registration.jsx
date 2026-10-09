@@ -52,26 +52,27 @@ function Registration() {
   return (
     <Form
       onSubmit={handleSubmit}
-      className="col-11 col-md-8 col-lg-5 bg-white rounded-4 shadow p-3 w-25"
+      className="bg-white bg-opacity-75 rounded-5 w-25 p-3"
     >
       <h1 className="p-3 m-3 text-center">Регистрация</h1>
 
       {error && (
-        <Alert variant="danger" className="mx-3">
+        <Alert variant="danger" className="mx-3 rounded-5">
           {error}
         </Alert>
       )}
       {success && (
-        <Alert variant="success" className="mx-3">
+        <Alert variant="success" className="mx-3 rounded-5">
           {success}
         </Alert>
-      )}  
+      )}
 
       <Form.Group className="p-3">
         <Form.Label>Логин</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="text"
-          placeholder="Логин"
+          placeholder="Введите логин"
           title="латиница и цифры, не менее 6 символов"
           pattern="[a-zA-Z0-9]{6,}"
           minLength={6}
@@ -84,8 +85,9 @@ function Registration() {
       <Form.Group controlId="formBasicPassword" className="p-3">
         <Form.Label>Пароль</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="password"
-          placeholder="Пароль"
+          placeholder="Введите пароль"
           title="минимум 8 символов"
           minLength={8}
           value={password}
@@ -97,8 +99,9 @@ function Registration() {
       <Form.Group className="p-3">
         <Form.Label>ФИО</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="text"
-          placeholder="ФИО"
+          placeholder="Введите ФИО"
           title="символы кириллицы и пробелы"
           pattern="[а-яА-ЯёЁ0-9\s]+"
           value={fio}
@@ -110,8 +113,9 @@ function Registration() {
       <Form.Group className="p-3">
         <Form.Label>Телефон</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="text"
-          placeholder="Телефон"
+          placeholder="Введите номер телефона"
           title="формат: 8(XXX)XXX-XX-XX"
           pattern="8\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}"
           minLength={15}
@@ -125,8 +129,9 @@ function Registration() {
       <Form.Group controlId="formBasicEmail" className="p-3">
         <Form.Label>Почта</Form.Label>
         <Form.Control
+          className="rounded-5"
           type="email"
-          placeholder="Почта"
+          placeholder="Введите адрес электронной почты"
           value={email}
           onChange={(e) => handleEmail(e.target.value)}
           required
@@ -134,7 +139,7 @@ function Registration() {
       </Form.Group>
 
       <div className="text-center m-3">
-        <Button variant="primary" type="submit" size="lg">
+        <Button variant="primary" type="submit" size="lg rounded-5">
           Создать пользователя
         </Button>
 
